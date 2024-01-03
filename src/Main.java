@@ -4,9 +4,11 @@ public class Main {
 
     public static void main(String[] args){
         TetrisFirstPageFrame tetrisFirstPageFrame = new TetrisFirstPageFrame();
+        TetrsiFirstPagePanel.clip.start();
         try {
             Thread.sleep(4000);
             tetrisFirstPageFrame.setVisible(false);
+            TetrsiFirstPagePanel.clip.stop();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
