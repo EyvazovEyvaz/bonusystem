@@ -98,12 +98,12 @@ public class TetrisScorePanel extends JPanel {
         BufferedImage image0;
 
         try {
-            image0 = ImageIO.read(new File("C:\\Users\\eyvaz\\Downloads\\new2.jpg"));
+            image0 = ImageIO.read(new File("C:\\Users\\eyvaz\\Downloads\\space1.jpg"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Image img0 = image0.getScaledInstance(getWidth(), getHeight(), 5);
-        g.drawImage(img0, 0, 0, this);
+       // Image img0 = image0.getScaledInstance(getWidth(), getHeight(), 5);
+        g.drawImage(image0, 0, 0, this);
 
 
         /*ufferedImage image, image2;
@@ -229,7 +229,7 @@ public class TetrisScorePanel extends JPanel {
                     if (TetrisPanel.rnd == 2 && TetrisPanel.rotate == 1) {
                         m1 -= 25;
                     }
-                    if (TetrisPanel.x < m1)
+                    if (TetrisPanel.x < m1 && !TetrisPanel.testRight())
                         TetrisPanel.x += 25;
                 }
 
@@ -266,7 +266,7 @@ public class TetrisScorePanel extends JPanel {
                     if (TetrisPanel.rnd == 2 && TetrisPanel.rotate == 0) {
                         n1 += 25;
                     }
-                    if (TetrisPanel.x > n1)
+                    if (TetrisPanel.x > n1 && !TetrisPanel.testLeft())
                         TetrisPanel.x -= 25;
 
                 }

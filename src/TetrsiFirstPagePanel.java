@@ -50,7 +50,8 @@ public class TetrsiFirstPagePanel extends JPanel {
     TetrsiFirstPagePanel() {
         this.setBounds(0, 0, FRAME_WIGHT, FRAME_HEIGHT);
         this.setVisible(true);
-        this.setBackground(Color.white);
+        this.setBackground(new Color(11,3,37));
+        this.setBackground(Color.WHITE);
         this.setLayout(null);
         try {
             musicFirstPage();
@@ -70,13 +71,16 @@ public class TetrsiFirstPagePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        BufferedImage image;
+        BufferedImage image, image1;
         try {
-            image = ImageIO.read(new File("C:\\Users\\eyvaz\\Downloads\\12c0eeefc4fee15918d79b034d0e068a.jpg"));
+            image = ImageIO.read(new File("C:\\Users\\eyvaz\\Downloads\\Tetris Master.jpg"));
+            image1 = ImageIO.read(new File("C:\\Users\\eyvaz\\Downloads\\tetris (7).png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        g.drawImage(image, -10, 100, this);
+        Image img = image1.getScaledInstance(200,200,4);
+        g.drawImage(image, 130, 50, this);
+        g.drawImage(img, 250, 300, this);
 
         f1x1 += 50;
         f1x2 += 50;
@@ -87,7 +91,11 @@ public class TetrsiFirstPagePanel extends JPanel {
         g.fillRect(f1x1, f1y2, 25, 25);
         g.fillRect(f1x1, f1y3, 25, 25);
         g.fillRect(f1x2, f1y3, 25, 25);
-        g.setColor(new Color(234, 67, 53));
+
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_3).png",f1x1,f1y1);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_3).png",f1x1,f1y2);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_3).png",f1x1,f1y3);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_3).png",f1x2,f1y3);
 
         f2x1 += 50;
         f2x2 += 50;
@@ -98,7 +106,13 @@ public class TetrsiFirstPagePanel extends JPanel {
         g.fillRect(f2x2, f2y1, 25, 25);
         g.fillRect(f2x3, f2y1, 25, 25);
         g.fillRect(f2x2, f2y2, 25, 25);
-        g.setColor(new Color(52, 168, 83));
+
+
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_2).png",f2x1,f2y1);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_2).png",f2x2,f2y1);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_2).png",f2x3,f2y1);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_2).png",f2x2,f2y2);
+
 
         f3x1 += 50;
         f3y1 += 50;
@@ -107,7 +121,10 @@ public class TetrsiFirstPagePanel extends JPanel {
         g.fillRect(f3x1, f3y1, 25, 25);
         g.fillRect(f3x1, f3y2, 25, 25);
         g.fillRect(f3x1, f3y3, 25, 25);
-        g.setColor(new Color(255, 109, 1));
+
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_!).png",f3x1,f3y1);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_!).png",f3x1,f3y2);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_!).png",f3x1,f3y3);
 
         f4x1 -= 50;
         f4x2 -= 50;
@@ -118,7 +135,11 @@ public class TetrsiFirstPagePanel extends JPanel {
         g.fillRect(f4x1, f4y2, 25, 25);
         g.fillRect(f4x2, f4y2, 25, 25);
         g.fillRect(f4x2, f4y3, 25, 25);
-        g.setColor(new Color(70, 189, 198));
+
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_2).png",f4x1,f4y1);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_2).png",f4x1,f4y2);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_2).png",f4x2,f4y2);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_2).png",f4x2,f4y3);
 
         f5x1 -= 50;
         f5x2 -= 50;
@@ -128,7 +149,11 @@ public class TetrsiFirstPagePanel extends JPanel {
         g.fillRect(f5x2, f5y1, 25, 25);
         g.fillRect(f5x1, f5y2, 25, 25);
         g.fillRect(f5x2, f5y2, 25, 25);
-        g.setColor(new Color(0, 255, 0));
+
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_4).png",f5x1,f5y1);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_4).png",f5x2,f5y1);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_4).png",f5x1,f5y2);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_4).png",f5x2,f5y2);
 
         f6x1 -= 50;
         f6x2 -= 50;
@@ -139,19 +164,35 @@ public class TetrsiFirstPagePanel extends JPanel {
         g.fillRect(f6x2, f6y1, 25, 25);
         g.fillRect(f6x3, f6y2, 25, 25);
         g.fillRect(f6x1, f6y2, 25, 25);
-        g.setColor(new Color(0, 0, 255));
-        g.setColor(Color.gray);
 
-        BufferedImage imageF;
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_5).png",f6x1,f6y1);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_5).png",f6x2,f6y1);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_5).png",f6x3,f6y2);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_5).png",f6x1,f6y2);
+
+       // BufferedImage imageF;
+
         try {
             Thread.sleep(200);
-            imageF = ImageIO.read(new File("C:\\Users\\eyvaz\\Downloads\\TetrisName3.jpg"));
-            Image imgg = imageF.getScaledInstance(500, 150, 5);
-            g.drawImage(imgg, 100, 0, this);
-        } catch (InterruptedException | IOException e) {
+           // imageF = ImageIO.read(new File("C:\\Users\\eyvaz\\Downloads\\TetrisName3.jpg"));
+           // Image imgg = imageF.getScaledInstance(500, 150, 5);
+            //g.drawImage(imgg, 100, 0, this);
+        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
         repaint();
+    }
+
+    public void firstPageStone(Graphics g,String str, int x, int y){
+
+        BufferedImage imageLittle;
+
+            try {
+                imageLittle = ImageIO.read(new File(str));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            g.drawImage(imageLittle, x,y,25,25,this);
     }
 }

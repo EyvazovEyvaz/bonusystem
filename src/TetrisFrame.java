@@ -15,15 +15,15 @@ public class TetrisFrame extends JFrame {
         this.pack();
         this.setSize(FRAME_WIGHT,FRAME_HEIGHT);
         this.setTitle("EYVAZ_TETRIS_GAME");
-        this.getContentPane().setBackground(new Color(11,3,37));
-       /* BufferedImage image0;
+        JLabel jLabel;
         try {
-            image0 = ImageIO.read(new File("C:\\Users\\eyvaz\\Downloads\\space4.jpg"));
+             jLabel = new JLabel(new ImageIcon(ImageIO.read(new File("C:\\Users\\eyvaz\\Downloads\\Emma Howitt Illus_ on X.jpg"))));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Image img0 = image0.getScaledInstance(getWidth(), getHeight(), 5);
-        this.add(new JLabel(new ImageIcon(img0)));*/
+        this.setContentPane(jLabel);
+        this.getContentPane().setBackground(new Color(11,3,37));
+        //Image img0 = image0.getScaledInstance(getWidth(), getHeight(), 5);
         this.add(new TetrisPanel());
         this.add(new TetrisScorePanel(0));
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);

@@ -70,7 +70,7 @@ public class TetrisPanel extends JPanel {
 
     public static void Y() {
         if (pause_cont) return;
-        if (y == 300) {
+        if (y == 500 || test()) {
             pause_cont2 = true;
             y = -25;
             rotate = 0;
@@ -105,7 +105,6 @@ public class TetrisPanel extends JPanel {
         Image img0 = image0.getScaledInstance(getWidth(), getHeight(), 5);
         g.drawImage(img0, 0, 0, this);
 
-
         new TetrisScorePanel(rand);
 
         if (rotateCheck) {
@@ -129,7 +128,7 @@ public class TetrisPanel extends JPanel {
             rotate = 0;
         }
 
-        if (y == 300) {
+        if (y == 500 || test()) {
             arrayListChild = new ArrayList<>();
             arrayListChild.add(rnd);
             arrayListChild.add(rotate);
@@ -187,7 +186,7 @@ public class TetrisPanel extends JPanel {
                     getY = j * UNIC + y;
                     g.drawImage(imagef, getX, getY, UNIC, UNIC, this);
 
-                    if (y == 300) {
+                    if (y == 500) {
                         if (rnd == 1 && rotate == 0 || rotate == 1 || rotate == 2 || rotate == 3) {
                             getY -= 25;
                         }
@@ -219,6 +218,44 @@ public class TetrisPanel extends JPanel {
             }
         }
 
+        if (test()){
+            for (int i = 0; i < T[4].length - 1; i++) {
+                for (int j = 0; j < T[4][0][0].length; j++) {
+                    if (T[rnd][rotate][i][j] != 0) {
+
+                        getX = i * UNIC + 6 * UNIC + x;
+                        getY = j * UNIC + y;
+                        /*if (rnd == 1 && rotate == 0 || rotate == 1 || rotate == 2 || rotate == 3) {
+                            getY -= 25;
+                        }
+                        if (rnd == 5 && rotate == 1) {
+                            getY += 50;
+                        }
+                        if (rnd == 5 && rotate == 0) {
+                            getY -= 25;
+                        }
+                        if (rnd == 0 && rotate == 3 *//*||rotate==2*//*) {
+                            getY -= 25;
+                        }
+                        if (rnd == 2 && rotate == 0) {
+                            //getY -=25;
+                        }
+                        if (rnd == 3 && rotate == 1) {
+                            getY += 25;
+                        }
+                        if (rnd == 2 && rotate == 1) {
+                            //getY -=25;
+                        }
+                        if (rnd == 3 && rotate == 1) {
+                            getY -= 25;
+                        }*/
+                        arrayListChild.add(getX);
+                        arrayListChild.add(getY);
+                    }
+                }
+            }
+        }
+
        /* for (int i = -1; i <= col; i++) {
             for (int j = -1; j <= row; j++) {
                 g.drawRect(i * UNIC, j * UNIC, UNIC, UNIC);
@@ -232,8 +269,9 @@ public class TetrisPanel extends JPanel {
             g.setFont(new Font("Bold", Font.PLAIN, 5));
         }
 
-        if (y == 300) {
+        if (y == 500 || test()) {
             arrayList.add(arrayListChild);
+            repaint();
         }
 
         try {
@@ -256,7 +294,7 @@ public class TetrisPanel extends JPanel {
         Clip clip = AudioSystem.getClip();
         clip.open(audioInputStream);
         FloatControl floatControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        if (y == 300) {
+        if (y == 500 ||test()) {
             floatControl.setValue(6.0f);
             clip.start();
         } else {
@@ -327,32 +365,41 @@ public class TetrisPanel extends JPanel {
             }
         }
     }
-
-    /*public static boolean test() {
+    public static boolean test() {
 
         for (ArrayList<Integer> tt : arrayList) {
             for (int i=0; i<tt.size(); i++){
                 if (i%2==0 && tt.get(i) == getX && tt.get(i+1) == getY+25){
+                    //System.out.println("getY"+getY);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean testLeft() {
+
+        for (ArrayList<Integer> tt : arrayList) {
+            for (int i=0; i<tt.size(); i++){
+                if (i!=0 && i%2==0 && tt.get(i) == getX-50 && tt.get(i+1) == getY){
                     System.out.println("yes");
                     return true;
                 }
             }
         }
         return false;
-    }*/
-    /*public static int test2() {
+    }
+    public static boolean testRight() {
 
-        int p = 0;
-        p = y;
         for (ArrayList<Integer> tt : arrayList) {
             for (int i=0; i<tt.size(); i++){
-                if (i!=0 && i%2==0 && tt.get(i) == getX && tt.get(i+1) == getY+50){
-                    System.out.println("ttX: "+tt.get(i)+"--ttY: "+tt.get(i+1));
-                    System.out.println("getX: "+getX+"--getY: "+getY);
-                    p = getY;
+                if (i!=0 && i%2==0 && tt.get(i) == getX+25 && tt.get(i+1) == getY){
+                    System.out.println("yesRIght");
+                    return true;
                 }
             }
         }
-        return p;
-    }*/
+        return false;
+    }
 }
