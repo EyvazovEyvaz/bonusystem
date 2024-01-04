@@ -3,6 +3,7 @@ import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Array;
@@ -31,12 +32,12 @@ public class TetrisPanel extends JPanel {
             {{{1, 1, 1}, {0, 0, 0}, {0, 0, 0}}, {{1, 0, 0}, {1, 0, 0}, {1, 0, 0}}, {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}}, {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}}},
 
     };
-    String str0 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (5_0).png";
-    String str1 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (5_1).png";
-    String str2 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (5_2).png";
-    String str3 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (5_3).png";
-    String str4 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (5_4).png";
-    String str5 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (5_5).png";
+    String str0 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_5).png";
+    String str1 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_2).png";
+    String str2 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_3).png";
+    String str3 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_6).png";
+    String str4 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_4).png";
+    String str5 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_!).png";
     static int y = -25;
     static int x = 0;
     public static boolean rotateCheck = false;
@@ -213,48 +214,38 @@ public class TetrisPanel extends JPanel {
                         }
                         arrayListChild.add(getX);
                         arrayListChild.add(getY);
+                    }else if (test()){
+                        for (int c = 0; c < T[4].length - 1; c++) {
+                            for (int z = 0; z < T[4][0][0].length; z++) {
+                                if (T[rnd][rotate][c][z] != 0) {
+
+                                    getX = c * UNIC + 6 * UNIC + x;
+                                    getY = z * UNIC + y;
+
+                                    arrayListChild.add(getX);
+                                    arrayListChild.add(getY);
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
 
-        if (test()){
+       /* if (test()){
             for (int i = 0; i < T[4].length - 1; i++) {
                 for (int j = 0; j < T[4][0][0].length; j++) {
                     if (T[rnd][rotate][i][j] != 0) {
 
                         getX = i * UNIC + 6 * UNIC + x;
                         getY = j * UNIC + y;
-                        /*if (rnd == 1 && rotate == 0 || rotate == 1 || rotate == 2 || rotate == 3) {
-                            getY -= 25;
-                        }
-                        if (rnd == 5 && rotate == 1) {
-                            getY += 50;
-                        }
-                        if (rnd == 5 && rotate == 0) {
-                            getY -= 25;
-                        }
-                        if (rnd == 0 && rotate == 3 *//*||rotate==2*//*) {
-                            getY -= 25;
-                        }
-                        if (rnd == 2 && rotate == 0) {
-                            //getY -=25;
-                        }
-                        if (rnd == 3 && rotate == 1) {
-                            getY += 25;
-                        }
-                        if (rnd == 2 && rotate == 1) {
-                            //getY -=25;
-                        }
-                        if (rnd == 3 && rotate == 1) {
-                            getY -= 25;
-                        }*/
+
                         arrayListChild.add(getX);
                         arrayListChild.add(getY);
                     }
                 }
             }
-        }
+        }*/
 
        /* for (int i = -1; i <= col; i++) {
             for (int j = -1; j <= row; j++) {
@@ -271,7 +262,6 @@ public class TetrisPanel extends JPanel {
 
         if (y == 500 || test()) {
             arrayList.add(arrayListChild);
-            repaint();
         }
 
         try {
@@ -280,9 +270,20 @@ public class TetrisPanel extends JPanel {
             throw new RuntimeException(e);
         }
 
-        paint2(g);
-        thrEad();
-        repaint();
+        if (!gameOver()){
+            paint2(g);
+            repaint();
+            thrEad();
+        }else{
+            paint2(g);
+            paintGameOver(g);
+            try {
+                musicGameOver();
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+                throw new RuntimeException(e);
+            }
+            Y();
+        }
 
 
     }
@@ -294,7 +295,7 @@ public class TetrisPanel extends JPanel {
         Clip clip = AudioSystem.getClip();
         clip.open(audioInputStream);
         FloatControl floatControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        if (y == 500 ||test()) {
+        if (y == 500 ||test() && !gameOver()) {
             floatControl.setValue(6.0f);
             clip.start();
         } else {
@@ -370,7 +371,6 @@ public class TetrisPanel extends JPanel {
         for (ArrayList<Integer> tt : arrayList) {
             for (int i=0; i<tt.size(); i++){
                 if (i%2==0 && tt.get(i) == getX && tt.get(i+1) == getY+25){
-                    //System.out.println("getY"+getY);
                     return true;
                 }
             }
@@ -401,5 +401,45 @@ public class TetrisPanel extends JPanel {
             }
         }
         return false;
+    }
+    public static boolean gameOver() {
+
+        if (test()){
+            if (getY==25 || getY==-25 || getY==0){
+                TetrisScorePanel.clip.stop();
+                TetrisScorePanel.buttonDown.setEnabled(false);
+                TetrisScorePanel.buttonReset.setEnabled(false);
+                TetrisScorePanel.buttonResume.setEnabled(false);
+                TetrisScorePanel.buttonLeft.setEnabled(false);
+                TetrisScorePanel.buttonRight.setEnabled(false);
+                TetrisScorePanel.buttonRotate.setEnabled(false);
+                TetrisPanel.pause_cont = true;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void paintGameOver(Graphics g){
+
+        BufferedImage imageOverGame;
+
+        try {
+            imageOverGame = ImageIO.read(new File("C:\\Users\\eyvaz\\Downloads\\gameOver.jpg"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Image imgGameOv = imageOverGame.getScaledInstance(380,150,4);
+        g.drawImage(imgGameOv,10,170,this);
+    }
+
+    public void musicGameOver() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+
+        File file = new File("C:\\Users\\eyvaz\\Downloads\\928daa61-6297-4a75-8e12-bfac5aff4ef7.wav");
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioInputStream);
+        clip.start();
     }
 }

@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.ArrayList;
 
 public class TetrisScorePanel extends JPanel {
     public static final int FRAME_SCORE_WIGHT = 250;
@@ -25,6 +26,10 @@ public class TetrisScorePanel extends JPanel {
     static int strt = 0;
 
     static Clip clip;
+
+    static JButton buttonRight, buttonLeft, buttonDown, buttonReset, buttonResume, buttonRotate;
+
+    static boolean en = false;
     public static final int[][][][] T = {//TTTT
             {{{1, 0, 0}, {1, 1, 0}, {1, 0, 0}}, {{0, 0, 0}, {0, 1, 0}, {1, 1, 1}}, {{0, 0, 1}, {0, 1, 1}, {0, 0, 1}}, {{1, 1, 1}, {0, 1, 0}, {0, 0, 0}},},
             //LLLL
@@ -124,13 +129,12 @@ public class TetrisScorePanel extends JPanel {
                 g.setColor(Color.white);
             }
         }*/
-
-        String str0 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (5_0).png";
-        String str1 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (5_1).png";
-        String str2 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (5_2).png";
-        String str3 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (5_3).png";
-        String str4 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (5_4).png";
-        String str5 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (5_5).png";
+        String str0 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_5).png";
+        String str1 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_2).png";
+        String str2 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_3).png";
+        String str3 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_6).png";
+        String str4 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_4).png";
+        String str5 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_!).png";
 
         for (int i = 0; i < T[4].length - 1; i++) {
             for (int j = 0; j < T[4][0][0].length; j++) {
@@ -200,16 +204,14 @@ public class TetrisScorePanel extends JPanel {
     }
 
     public void commandbuttonsRights() {
-        JButton buttonRight = new JButton();
+        buttonRight = new JButton();
         buttonRight.setBounds(150, 300, allbuttonsSize, allbuttonsSize);
         buttonRight.setBackground(Color.white);
-        this.add(buttonRight);
 
         ImageIcon imageIcon = new ImageIcon("C:\\Users\\eyvaz\\Downloads\\tetris (2).png");
         Image image = imageIcon.getImage();
         Image img = image.getScaledInstance(buttonRight.getWidth(), buttonRight.getHeight(), 5);
         buttonRight.setIcon(new ImageIcon(img));
-        this.add(buttonRight);
 
         buttonRight.addActionListener(new ActionListener() {
             @Override
@@ -239,7 +241,7 @@ public class TetrisScorePanel extends JPanel {
     }
 
     public void commandbuttonsLefts() {
-        JButton buttonLeft = new JButton();
+        buttonLeft = new JButton();
         buttonLeft.setBounds(30, 300, allbuttonsSize, allbuttonsSize);
         buttonLeft.setBackground(Color.white);
 
@@ -247,7 +249,6 @@ public class TetrisScorePanel extends JPanel {
         Image image = imageIcon.getImage();
         Image img = image.getScaledInstance(buttonLeft.getWidth(), buttonLeft.getHeight(), 5);
         buttonLeft.setIcon(new ImageIcon(img));
-        this.add(buttonLeft);
 
         buttonLeft.addActionListener(new ActionListener() {
             @Override
@@ -277,7 +278,7 @@ public class TetrisScorePanel extends JPanel {
     }
 
     public void commandbuttonsDown() {
-        JButton buttonDown = new JButton();
+        buttonDown = new JButton();
         buttonDown.setBounds(90, 360, allbuttonsSize, allbuttonsSize);
         buttonDown.setBackground(Color.WHITE);
 
@@ -285,7 +286,6 @@ public class TetrisScorePanel extends JPanel {
         Image image = imageIcon.getImage();
         Image img = image.getScaledInstance(buttonDown.getWidth(), buttonDown.getHeight(), 5);
         buttonDown.setIcon(new ImageIcon(img));
-        this.add(buttonDown);
 
         buttonDown.addActionListener(new ActionListener() {
             @Override
@@ -296,7 +296,7 @@ public class TetrisScorePanel extends JPanel {
     }
 
     public void commandbuttonsReset() {
-        JButton buttonReset = new JButton();
+        buttonReset = new JButton();
         buttonReset.setBounds(150, 420, allbuttonsSize, allbuttonsSize);
         buttonReset.setBackground(Color.WHITE);
 
@@ -304,22 +304,21 @@ public class TetrisScorePanel extends JPanel {
         Image image = imageIcon.getImage();
         Image img = image.getScaledInstance(buttonReset.getWidth(), buttonReset.getHeight(), 5);
         buttonReset.setIcon(new ImageIcon(img));
-        this.add(buttonReset);
 
         buttonReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (strt == 0)
-                    strt = 1;
-                else
-                    strt = 0;
+                for (ArrayList<Integer> tt: TetrisPanel.arrayList) {
+                    TetrisPanel.arrayList.clear();
+                }
+                TetrisPanel.y = -25;
             }
         });
 
     }
 
     public void commandbuttonsStartResume() {
-        JButton buttonResume = new JButton();
+        buttonResume = new JButton();
         buttonResume.setBounds(30, 420, allbuttonsSize, allbuttonsSize);
         buttonResume.setBackground(Color.WHITE);
 
@@ -331,6 +330,7 @@ public class TetrisScorePanel extends JPanel {
         buttonResume.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                buttonsEnabledTrue();
                 v = 1;
                 if (p == 0) {
                     TetrisScorePanel.p++;
@@ -367,7 +367,7 @@ public class TetrisScorePanel extends JPanel {
     }
 
     public void commandButtonsRotate() {
-        JButton buttonRotate = new JButton();
+        buttonRotate = new JButton();
         buttonRotate.setBounds(30, 240, allbuttonsSize, allbuttonsSize);
         buttonRotate.setBackground(Color.WHITE);
 
@@ -375,7 +375,6 @@ public class TetrisScorePanel extends JPanel {
         Image image = imageIcon.getImage();
         Image img = image.getScaledInstance(buttonRotate.getWidth(), buttonRotate.getHeight(), 5);
         buttonRotate.setIcon(new ImageIcon(img));
-        this.add(buttonRotate);
 
         buttonRotate.addActionListener(new ActionListener() {
             @Override
@@ -387,5 +386,14 @@ public class TetrisScorePanel extends JPanel {
             }
         });
 
+    }
+
+    public void buttonsEnabledTrue(){
+
+        this.add(buttonReset);
+        this.add(buttonDown);
+        this.add(buttonLeft);
+        this.add(buttonRight);
+        this.add(buttonRotate);
     }
 }
