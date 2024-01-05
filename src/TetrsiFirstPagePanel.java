@@ -108,10 +108,10 @@ public class TetrsiFirstPagePanel extends JPanel {
         g.fillRect(f2x2, f2y2, 25, 25);
 
 
-        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_2).png",f2x1,f2y1);
-        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_2).png",f2x2,f2y1);
-        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_2).png",f2x3,f2y1);
-        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_2).png",f2x2,f2y2);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_6).png",f2x1,f2y1);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_6).png",f2x2,f2y1);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_6).png",f2x3,f2y1);
+        firstPageStone(g,"C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_6).png",f2x2,f2y2);
 
 
         f3x1 += 50;

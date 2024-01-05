@@ -103,7 +103,7 @@ public class TetrisScorePanel extends JPanel {
         BufferedImage image0;
 
         try {
-            image0 = ImageIO.read(new File("C:\\Users\\eyvaz\\Downloads\\space1.jpg"));
+            image0 = ImageIO.read(new File("C:\\Users\\eyvaz\\Downloads\\Screenshot_20240105_153643_Gallery.jpg"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -331,6 +331,8 @@ public class TetrisScorePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 buttonsEnabledTrue();
+                buttonRotate.setEnabled(true);
+                add(buttonRotate);
                 v = 1;
                 if (p == 0) {
                     TetrisScorePanel.p++;
@@ -375,6 +377,8 @@ public class TetrisScorePanel extends JPanel {
         Image image = imageIcon.getImage();
         Image img = image.getScaledInstance(buttonRotate.getWidth(), buttonRotate.getHeight(), 5);
         buttonRotate.setIcon(new ImageIcon(img));
+        buttonRotate.setEnabled(false);
+        this.add(buttonRotate);
 
         buttonRotate.addActionListener(new ActionListener() {
             @Override
@@ -394,6 +398,6 @@ public class TetrisScorePanel extends JPanel {
         this.add(buttonDown);
         this.add(buttonLeft);
         this.add(buttonRight);
-        this.add(buttonRotate);
+
     }
 }
