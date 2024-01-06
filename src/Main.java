@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -13,15 +14,15 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-
         createObjTetris();
+
 
     }
     public static void createObjTetris(){
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new TetrisFrame();
+                  new TetrisFrame();
             }
         });
     }

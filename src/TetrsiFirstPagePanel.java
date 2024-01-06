@@ -74,13 +74,13 @@ public class TetrsiFirstPagePanel extends JPanel {
         BufferedImage image, image1;
         try {
             image = ImageIO.read(new File("C:\\Users\\eyvaz\\Downloads\\Tetris Master.jpg"));
-            image1 = ImageIO.read(new File("C:\\Users\\eyvaz\\Downloads\\tetris (7).png"));
+            image1 = ImageIO.read(new File("C:\\Users\\eyvaz\\Downloads\\firsttt.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Image img = image1.getScaledInstance(200,200,4);
+        Image img = image1.getScaledInstance(getWidth()-100,getHeight()-150,4);
         g.drawImage(image, 130, 50, this);
-        g.drawImage(img, 250, 300, this);
+        g.drawImage(image1, 100, 220, this);
 
         f1x1 += 50;
         f1x2 += 50;

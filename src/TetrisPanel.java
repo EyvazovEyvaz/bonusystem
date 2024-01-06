@@ -52,16 +52,21 @@ public class TetrisPanel extends JPanel {
     ArrayList<Integer> arrayListChild;
     static int rand;
 
+    static int speed = 80;
+
+    int getXline = 0;
+    int getYline = 0;
+
     TetrisPanel() {
         this.setBounds(55, 50, FRAME_WIGHT, FRAME_HEIGHT);
         this.setVisible(true);
         this.setLayout(null);
-
+        this.setBackground(Color.black);
     }
 
     public static void thrEad() {
         try {
-            Thread.sleep(5);
+            Thread.sleep(speed);
             Y();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
@@ -95,17 +100,16 @@ public class TetrisPanel extends JPanel {
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        /// Goruntu şəkil
         BufferedImage image0;
 
-        try {
+        /*try {
             image0 = ImageIO.read(new File("C:\\Users\\eyvaz\\OneDrive\\Desktop\\images\\x.jpg"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         Image img0 = image0.getScaledInstance(getWidth(), getHeight(), 5);
         g.drawImage(img0, 0, 0, this);
-
+*/
         new TetrisScorePanel(rand);
 
         if (rotateCheck) {
@@ -214,7 +218,7 @@ public class TetrisPanel extends JPanel {
                         }
                         arrayListChild.add(getX);
                         arrayListChild.add(getY);
-                    }else if (test()){
+                    } else if (test()) {
                         for (int c = 0; c < T[4].length - 1; c++) {
                             for (int z = 0; z < T[4][0][0].length; z++) {
                                 if (T[rnd][rotate][c][z] != 0) {
@@ -232,28 +236,6 @@ public class TetrisPanel extends JPanel {
             }
         }
 
-       /* if (test()){
-            for (int i = 0; i < T[4].length - 1; i++) {
-                for (int j = 0; j < T[4][0][0].length; j++) {
-                    if (T[rnd][rotate][i][j] != 0) {
-
-                        getX = i * UNIC + 6 * UNIC + x;
-                        getY = j * UNIC + y;
-
-                        arrayListChild.add(getX);
-                        arrayListChild.add(getY);
-                    }
-                }
-            }
-        }*/
-
-       /* for (int i = -1; i <= col; i++) {
-            for (int j = -1; j <= row; j++) {
-                g.drawRect(i * UNIC, j * UNIC, UNIC, UNIC);
-                g.setColor(Color.cyan);
-            }
-        }*/
-
         if (pause_cont && TetrisScorePanel.v != 0) {
             g.setColor(Color.RED);
             g.drawString("PAUSA", 200, 200);
@@ -270,11 +252,12 @@ public class TetrisPanel extends JPanel {
             throw new RuntimeException(e);
         }
 
-        if (!gameOver()){
+        if (!gameOver()) {
             paint2(g);
+            //paintLine(g);
             repaint();
             thrEad();
-        }else{
+        } else {
             paint2(g);
             paintGameOver(g);
             try {
@@ -285,7 +268,12 @@ public class TetrisPanel extends JPanel {
             Y();
         }
 
-
+        /*for (int i = -1; i <= col; i++) {
+            for (int j = -1; j <= row; j++) {
+                g.drawRect(i * UNIC, j * UNIC, UNIC, UNIC);
+                g.setColor(Color.cyan);
+            }
+        }*/
     }
 
     public void musicPanel() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
@@ -295,13 +283,106 @@ public class TetrisPanel extends JPanel {
         Clip clip = AudioSystem.getClip();
         clip.open(audioInputStream);
         FloatControl floatControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        if (y == 500 ||test() && !gameOver()) {
+        if (y == 500 || test() && !gameOver()) {
             floatControl.setValue(6.0f);
             clip.start();
         } else {
             clip.stop();
         }
 
+    }
+
+    public void paintLine(Graphics g) {
+        getXline = 0;
+        getYline = 0;
+        for (int i = 0; i < T[4].length - 1; i++) {
+            for (int j = 0; j < T[4][0][0].length; j++) {
+                if (T[rnd][rotate][i][j] != 0) {
+                    switch (rnd) {
+                        case 0 -> g.setColor(Color.white);
+                        case 1 -> g.setColor(Color.white);
+                        case 2 -> g.setColor(Color.white);
+                        case 3 -> g.setColor(Color.white);
+                        case 4 -> g.setColor(Color.white);
+                        case 5 -> g.setColor(Color.white);
+                    }
+
+                    getXline = i * UNIC + 6 * UNIC + x;
+                    getYline = j * UNIC + 500;
+
+                    if (getYline == j * UNIC + 500) {
+                        if (rnd == 1 && rotate == 0 || rotate == 1 || rotate == 2 || rotate == 3) {
+                            getYline -= 25;
+                        }
+                        if (rnd == 5 && rotate == 1) {
+                            getYline += 50;
+                        }
+                        if (rnd == 5 && rotate == 0) {
+                            getYline -= 25;
+                        }
+                        if (rnd == 0 && rotate == 3) {
+                            getYline -= 25;
+                        }
+                        if (rnd == 2 && rotate == 0) {
+                            //getY -=25;
+                        }
+                        if (rnd == 3 && rotate == 1) {
+                            getYline += 25;
+                        }
+                        if (rnd == 2 && rotate == 1) {
+                            //getY -=25;
+                        }
+                        if (rnd == 3 && rotate == 1) {
+                            getYline -= 25;
+
+                        }
+
+                        //g.drawRect(getXline, getYline, UNIC, UNIC);
+                    }
+
+                    /*for(int s=0; s<arrayList.size(); s++){
+                        int x = 0;
+                        int y = 0;
+                        for (int n=s+1; n<arrayList.size(); n++){
+                            for (int d=0; d<10; d++){
+                                if (d !=0 && d%2==0 && Objects.equals(arrayList.get(s).get(d), arrayList.get(n).get(d))){
+                                    if (arrayList.get(s).get(d+1)>arrayList.get(n).get(d+1)){
+                                        y = arrayList.get(s).get(d+1);
+                                        x = arrayList.get(s).get(d);
+                                    } else if (arrayList.get(s).get(d+1)<arrayList.get(n).get(d+1)) {
+                                        y = arrayList.get(n).get(d+1);
+                                        x = arrayList.get(n).get(d);
+                                    }
+                                    if (x == getXline - 25) {
+                                        for (int f = 0; f < T[4].length - 1; f++) {
+                                            for (int v = 0; v < T[4][0][0].length; v++) {
+                                                if (T[rnd][rotate][f][v] != 0) {
+                                                    getYline = y-50;
+                                                    g.fillRect(getXline, getYline, UNIC, UNIC);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }*/
+                    }
+                    for (ArrayList<Integer> tt : arrayList) {
+                        for (int c = 0; c < tt.size(); c++) {
+                            if (c % 2 == 0 && tt.get(c) == getXline - 25) {
+                                for (int f = 0; f < T[4].length - 1; f++) {
+                                    for (int v = 0; v < T[4][0][0].length; v++) {
+                                        if (T[rnd][rotate][f][v] != 0) {
+                                            getYline = tt.get(c + 1)-75;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                g.drawRect(getXline, getYline, UNIC, UNIC);
+            }
+        }
     }
 
     public void paint2(Graphics g) {
@@ -359,18 +440,19 @@ public class TetrisPanel extends JPanel {
                         tX += 2;
                         tY += 2;
 
-                        g.drawImage(imagef, rr.get(tX), rr.get(tY + 1), UNIC, UNIC, this);
-
                     }
+                    g.drawImage(imagef, rr.get(tX), rr.get(tY + 1), UNIC, UNIC, this);
                 }
             }
         }
     }
+
     public static boolean test() {
 
         for (ArrayList<Integer> tt : arrayList) {
-            for (int i=0; i<tt.size(); i++){
-                if (i%2==0 && tt.get(i) == getX && tt.get(i+1) == getY+25){
+            for (int i = 0; i < tt.size(); i++) {
+                if (i % 2 == 0 && tt.get(i) == getX && tt.get(i + 1) == getY + 25) {
+                    System.out.println("yes"+getY);
                     return true;
                 }
             }
@@ -381,38 +463,32 @@ public class TetrisPanel extends JPanel {
     public static boolean testLeft() {
 
         for (ArrayList<Integer> tt : arrayList) {
-            for (int i=0; i<tt.size(); i++){
-                if (i!=0 && i%2==0 && tt.get(i) == getX-50 && tt.get(i+1) == getY){
-                    System.out.println("yes");
+            for (int i = 0; i < tt.size(); i++) {
+                if (i != 0 && i % 2 == 0 && tt.get(i) == getX - 50 && tt.get(i + 1) == getY) {
                     return true;
                 }
             }
         }
         return false;
     }
+
     public static boolean testRight() {
 
         for (ArrayList<Integer> tt : arrayList) {
-            for (int i=0; i<tt.size(); i++){
-                if (i!=0 && i%2==0 && tt.get(i) == getX+25 && tt.get(i+1) == getY){
-                    System.out.println("yesRIght");
+            for (int i = 0; i < tt.size(); i++) {
+                if (i != 0 && i % 2 == 0 && tt.get(i) == getX + 25 && tt.get(i + 1) == getY) {
                     return true;
                 }
             }
         }
         return false;
     }
+
     public static boolean gameOver() {
 
-        if (test()){
-            if (getY==25 || getY==-25 || getY==0){
+        if (test()) {
+            if (getY == 25 || getY == -25 || getY == 0) {
                 TetrisScorePanel.clip.stop();
-                TetrisScorePanel.buttonDown.setEnabled(false);
-                TetrisScorePanel.buttonReset.setEnabled(false);
-                TetrisScorePanel.buttonResume.setEnabled(false);
-                TetrisScorePanel.buttonLeft.setEnabled(false);
-                TetrisScorePanel.buttonRight.setEnabled(false);
-                TetrisScorePanel.buttonRotate.setEnabled(false);
                 TetrisPanel.pause_cont = true;
                 return true;
             }
@@ -420,7 +496,7 @@ public class TetrisPanel extends JPanel {
         return false;
     }
 
-    public void paintGameOver(Graphics g){
+    public void paintGameOver(Graphics g) {
 
         BufferedImage imageOverGame;
 
@@ -430,8 +506,9 @@ public class TetrisPanel extends JPanel {
             throw new RuntimeException(e);
         }
 
-        Image imgGameOv = imageOverGame.getScaledInstance(380,150,4);
-        g.drawImage(imgGameOv,10,170,this);
+        Image imgGameOv = imageOverGame.getScaledInstance(380, 150, 4);
+        g.drawImage(imgGameOv, 10, 170, this);
+
     }
 
     public void musicGameOver() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
@@ -441,5 +518,21 @@ public class TetrisPanel extends JPanel {
         Clip clip = AudioSystem.getClip();
         clip.open(audioInputStream);
         clip.start();
+    }
+
+    public void whantIsNewGame() {
+
+        int a = JOptionPane.showConfirmDialog(this, "Yenidən oyna?");
+
+        if (a == JOptionPane.YES_OPTION) {
+            Main.createObjTetris();
+        } else if (a == JOptionPane.NO_OPTION) {
+            System.exit(1);
+        }
+    }
+
+    public void checkisFillallXcoor(){
+
+
     }
 }
