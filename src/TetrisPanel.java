@@ -2,6 +2,8 @@ import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -137,6 +139,7 @@ public class TetrisPanel extends JPanel {
             arrayListChild = new ArrayList<>();
             arrayListChild.add(rnd);
             arrayListChild.add(rotate);
+            speed = 80;
         }
 
         for (int i = 0; i < T[4].length - 1; i++) {
@@ -266,6 +269,11 @@ public class TetrisPanel extends JPanel {
                 throw new RuntimeException(e);
             }
             Y();
+
+        }
+
+        if (gameOver()){
+            whantIsNewGame();
         }
 
         /*for (int i = -1; i <= col; i++) {
@@ -464,7 +472,7 @@ public class TetrisPanel extends JPanel {
 
         for (ArrayList<Integer> tt : arrayList) {
             for (int i = 0; i < tt.size(); i++) {
-                if (i != 0 && i % 2 == 0 && tt.get(i) == getX - 50 && tt.get(i + 1) == getY) {
+                if (i != 0 && i % 2 == 0 && tt.get(i) == getX - 25 && tt.get(i + 1) == getY) {
                     return true;
                 }
             }
@@ -522,13 +530,45 @@ public class TetrisPanel extends JPanel {
 
     public void whantIsNewGame() {
 
-        int a = JOptionPane.showConfirmDialog(this, "Yenidən oyna?");
+       /* int a = JOptionPane.showConfirmDialog(this, "Yenidən oyna?");
 
         if (a == JOptionPane.YES_OPTION) {
             Main.createObjTetris();
         } else if (a == JOptionPane.NO_OPTION) {
             System.exit(1);
-        }
+        }*/
+
+        JLabel lEADtEXT= new JLabel();
+        lEADtEXT.setText("Yenidən oyna");
+        lEADtEXT.setBounds(170,240,300,100);
+        lEADtEXT.setForeground(Color.orange);
+        this.add(lEADtEXT);
+        JLabel label= new JLabel();
+        label.setBounds(50,300,300,100);
+        label.setBackground(Color.blue);
+        JButton button = new JButton("Yes");
+        button.setBounds(45,0,100,30);
+        label.add(button);
+        JButton buttonj = new JButton("No");
+        buttonj.setBounds(155,0,100,30);
+        label.add(buttonj);
+        this.add(label);
+
+        buttonj.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(1);
+            }
+        });
+
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+
+            }
+        });
+
     }
 
     public void checkisFillallXcoor(){

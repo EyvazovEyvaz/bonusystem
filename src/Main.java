@@ -4,6 +4,12 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args){
+
+        createObjectFirstPage();
+        createObjTetris();
+
+    }
+    public static void createObjectFirstPage(){
         TetrisFirstPageFrame tetrisFirstPageFrame = new TetrisFirstPageFrame();
         TetrsiFirstPagePanel.clip.start();
         try {
@@ -13,10 +19,6 @@ public class Main {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
-        createObjTetris();
-
-
     }
     public static void createObjTetris(){
         SwingUtilities.invokeLater(new Runnable() {

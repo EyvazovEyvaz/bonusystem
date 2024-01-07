@@ -295,13 +295,14 @@ public class TetrisScorePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if (checkSpeed==0){
+                /*if (checkSpeed==0){
                     checkSpeed = 1;
                     TetrisPanel.speed = 0;
                 } else if (checkSpeed==1) {
                     checkSpeed = 0;
                     TetrisPanel.speed = 80;
-                }
+                }*/
+                TetrisPanel.speed = 0;
 
             }
         });
