@@ -33,9 +33,9 @@ public class TetrisScorePanel extends JPanel {
 
     JButton buttonRight, buttonLeft,buttonDown, buttonReset, buttonRotate, buttonResume;
 
-    int clrs1;
-    int clrs2;
-    int clrs3;
+   static int clrs1;
+   static int clrs2;
+   static int clrs3;
 
     Random randomColors = new Random();
     public static final int[][][][] T = {//TTTT
@@ -89,7 +89,7 @@ public class TetrisScorePanel extends JPanel {
         scoreL.setText("0");
         scoreL.setBounds(160, -10, 100, 100);
         scoreL.setFont(new Font("BOLD", Font.BOLD, 60));
-        scoreL.setForeground(Color.blue);
+        scoreL.setForeground(Color.white);
         this.add(scoreL);
         this.setLayout(null);
 

@@ -239,11 +239,7 @@ public class TetrisPanel extends JPanel {
             }
         }
 
-        if (pause_cont && TetrisScorePanel.v != 0) {
-            g.setColor(Color.RED);
-            g.drawString("PAUSA", 200, 200);
-            g.setFont(new Font("Bold", Font.PLAIN, 5));
-        }
+        pauseLabel(g);
 
         if (y == 500 || test()) {
             arrayList.add(arrayListChild);
@@ -282,6 +278,16 @@ public class TetrisPanel extends JPanel {
                 g.setColor(Color.cyan);
             }
         }*/
+    }
+
+    public void pauseLabel(Graphics g){
+
+        if (pause_cont && TetrisScorePanel.v != 0) {
+            g.setColor(Color.RED);
+            g.setFont(new Font("Bold", Font.ITALIC, 29));
+            g.drawString("PAUSA", 150, 200);
+        }
+
     }
 
     public void musicPanel() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
@@ -530,14 +536,6 @@ public class TetrisPanel extends JPanel {
 
     public void whantIsNewGame() {
 
-       /* int a = JOptionPane.showConfirmDialog(this, "Yenidən oyna?");
-
-        if (a == JOptionPane.YES_OPTION) {
-            Main.createObjTetris();
-        } else if (a == JOptionPane.NO_OPTION) {
-            System.exit(1);
-        }*/
-
         JLabel lEADtEXT= new JLabel();
         lEADtEXT.setText("Yenidən oyna");
         lEADtEXT.setBounds(170,240,300,100);
@@ -545,14 +543,24 @@ public class TetrisPanel extends JPanel {
         this.add(lEADtEXT);
         JLabel label= new JLabel();
         label.setBounds(50,300,300,100);
-        label.setBackground(Color.blue);
-        JButton button = new JButton("Yes");
-        button.setBounds(45,0,100,30);
+        JButton button = new JButton();
+        button.setBounds(75,0,40,80);
+        button.setBackground(Color.WHITE);
+        ImageIcon imageIcon = new ImageIcon("C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\yes1.png");
+        Image image = imageIcon.getImage();
+        Image img = image.getScaledInstance(button.getWidth(),button.getHeight(), 4);
+        button.setIcon(new ImageIcon(img));
         label.add(button);
-        JButton buttonj = new JButton("No");
-        buttonj.setBounds(155,0,100,30);
+
+        JButton buttonj = new JButton();
+        buttonj.setBounds(185,0,40,80);
+        buttonj.setBackground(Color.WHITE);
+        ImageIcon imageIcon1 = new ImageIcon("C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\yes.png");
+        Image image1 = imageIcon1.getImage().getScaledInstance(buttonj.getWidth(), buttonj.getHeight(),4);
+        buttonj.setIcon(new ImageIcon(image1));
         label.add(buttonj);
         this.add(label);
+
 
         buttonj.addActionListener(new ActionListener() {
             @Override
