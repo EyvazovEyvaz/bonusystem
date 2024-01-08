@@ -34,12 +34,19 @@ public class TetrisPanel extends JPanel {
             {{{1, 1, 1}, {0, 0, 0}, {0, 0, 0}}, {{1, 0, 0}, {1, 0, 0}, {1, 0, 0}}, {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}}, {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}}},
 
     };
-    String str0 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_5).png";
+  /*  String str0 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_5).png";
     String str1 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_2).png";
     String str2 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_3).png";
     String str3 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_6).png";
     String str4 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_4).png";
-    String str5 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_!).png";
+    String str5 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (9_!).png";*/
+
+    String str0 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (5_0).png";
+    String str1 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (5_1).png";
+    String str2 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (5_2).png";
+    String str3 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (5_3).png";
+    String str4 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (5_4).png";
+    String str5 = "C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\tetris (5_5).png";
     static int y = -25;
     static int x = 0;
     public static boolean rotateCheck = false;
@@ -63,7 +70,7 @@ public class TetrisPanel extends JPanel {
         this.setBounds(55, 50, FRAME_WIGHT, FRAME_HEIGHT);
         this.setVisible(true);
         this.setLayout(null);
-        this.setBackground(Color.black);
+        this.setBackground(Color.blue);
     }
 
     public static void thrEad() {
@@ -253,7 +260,6 @@ public class TetrisPanel extends JPanel {
 
         if (!gameOver()) {
             paint2(g);
-            //paintLine(g);
             repaint();
             thrEad();
         } else {
@@ -264,13 +270,11 @@ public class TetrisPanel extends JPanel {
             } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
                 throw new RuntimeException(e);
             }
+            whantIsNewGame();
             Y();
 
         }
 
-        if (gameOver()){
-            whantIsNewGame();
-        }
 
         /*for (int i = -1; i <= col; i++) {
             for (int j = -1; j <= row; j++) {
@@ -466,7 +470,7 @@ public class TetrisPanel extends JPanel {
         for (ArrayList<Integer> tt : arrayList) {
             for (int i = 0; i < tt.size(); i++) {
                 if (i % 2 == 0 && tt.get(i) == getX && tt.get(i + 1) == getY + 25) {
-                    System.out.println("yes"+getY);
+                    System.out.println("yesss"+getY);
                     return true;
                 }
             }
@@ -515,13 +519,13 @@ public class TetrisPanel extends JPanel {
         BufferedImage imageOverGame;
 
         try {
-            imageOverGame = ImageIO.read(new File("C:\\Users\\eyvaz\\Downloads\\gameOver.jpg"));
+            imageOverGame = ImageIO.read(new File("C:\\Users\\eyvaz\\Downloads\\gameOver - Copy.jpg"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        Image imgGameOv = imageOverGame.getScaledInstance(380, 150, 4);
-        g.drawImage(imgGameOv, 10, 170, this);
+        Image imgGameOv = imageOverGame.getScaledInstance(380, 160, 4);
+        g.drawImage(imgGameOv, 10, 150, this);
 
     }
 
@@ -544,7 +548,7 @@ public class TetrisPanel extends JPanel {
         JLabel label= new JLabel();
         label.setBounds(50,300,300,100);
         JButton button = new JButton();
-        button.setBounds(75,0,40,80);
+        button.setBounds(75,0,40,40);
         button.setBackground(Color.WHITE);
         ImageIcon imageIcon = new ImageIcon("C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\yes1.png");
         Image image = imageIcon.getImage();
@@ -553,7 +557,7 @@ public class TetrisPanel extends JPanel {
         label.add(button);
 
         JButton buttonj = new JButton();
-        buttonj.setBounds(185,0,40,80);
+        buttonj.setBounds(185,0,40,40);
         buttonj.setBackground(Color.WHITE);
         ImageIcon imageIcon1 = new ImageIcon("C:\\Users\\eyvaz\\OneDrive\\Pictures\\Screenshots\\yes.png");
         Image image1 = imageIcon1.getImage().getScaledInstance(buttonj.getWidth(), buttonj.getHeight(),4);
@@ -562,18 +566,17 @@ public class TetrisPanel extends JPanel {
         this.add(label);
 
 
-        buttonj.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(1);
-            }
-        });
-
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+            }
+        });
 
+        buttonj.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(1);
             }
         });
 
